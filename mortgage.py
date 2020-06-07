@@ -4,26 +4,39 @@
 # P = amount borrowed
 # N = number of monthly payments
 # c = monthly payment
+z = False
+while z == False:
 
-a = float(input('interest rate'))
-b = int(input('amount borrowed'))
-d = int(input('length of mortgage'))
+    q = input('do you want to calculate the amount you can borrow (b) or your payment (p)?').lower()
+    if q == 'p':
 
-r = a/12
-p = b
-n = d
-c = (r * p * ((1 + r)**n)) / (((1 + r)**n) - 1)
+        a = float(input('interest rate'))
+        b = int(input('amount borrowed'))
+        d = int(input('length of mortgage'))
 
-
-print('the payment is ${:,.2f}'.format(c))
-
-a = float(input('interest rate'))
-b = float(input('payment'))
-d = int(input('length of mortgage'))
-
-r = a/12
-n = d
+        r = a/12
+        p = b
+        n = d
+        c = (r * p * ((1 + r)**n)) / (((1 + r)**n) - 1)
 
 
-p = (((1 + r)**n) - 1) * c  / (((1 + r)**n)* r)
-print('the amount you can borrow is ${:,.2f}'.format(p))
+        print('the payment is ${:,.2f}'.format(c))
+        z == True
+        quit()
+    if q == 'b':
+
+        a = float(input('interest rate'))
+        b = float(input('payment'))
+        d = int(input('length of mortgage'))
+
+        r = a/12
+        n = d
+
+
+        x = (((1 + r)**n) - 1) * b  / (((1 + r)**n)* r)
+        print('the amount you can borrow is ${:,.2f}'.format(x))
+        z == True
+        quit()
+    else:
+        print('enter b or p')
+        z == False
