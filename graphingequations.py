@@ -1,19 +1,24 @@
+
+import numpy as np
 import matplotlib.pyplot as plt
-import math
 
-x = [1, .866, 1.414/2, 0.5, 0, -0.5, -1.414/2, -.866, -1 ]
-y = [0, 0.5, 1.414/2, 0.866, 1, 0.866, 1.414/2, .5, 0]
-
-
-# for item in range(180):
-#     v = math.radians(item)
-#     z = math.sqrt(1 - (math.cos(item)**2))
-#     x.append(v)
-#     y.append(z)
+def f(x, y):
+    return ((x**2)/49 + (y**2)/16) -100
 
 
-plt.plot(x, y, color = 'red', marker = 'o')
-plt.xlabel('x- axis', color = 'orange')
-plt.ylabel('y- axis', color = 'pink')
-plt.title('My first graph', color = 'green')
+delta = 1
+x = np.linspace(-7.5, 7.5, 50 )
+y = np.linspace(-4, 4, 50)
+X, Y = np.meshgrid(x, y)
+
+
+#eqn = ((x)**2)/9 + ((y)**2)/16
+Z = f(X,Y)
+# Z1 = np.exp(-X**2 - Y**2)
+# Z2 = np.exp(-(X - 1)**2 - (Y - 1)**2)
+# Z = (Z1 - Z2) * 2
+
+plt.contour(X, Y, Z, colors = 'blue' )
+plt.xlim([-12, 12])
+plt.ylim(-10, 10)
 plt.show()
