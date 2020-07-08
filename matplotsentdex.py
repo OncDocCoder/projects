@@ -1,3 +1,4 @@
+
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
@@ -6,11 +7,10 @@ import matplotlib.dates as mdates
 import matplotlib.ticker as mticker
 import mplfinance
 from mplfinance.original_flavor import candlestick_ohlc
-from matplotlib import style
 
 
 #style.use('ggplot')
-style.use('fivethirtyeight')
+# style.use('fivethirtyeight')
 
 
 
@@ -276,6 +276,77 @@ style.use('fivethirtyeight')
 #
 # graph_data('TSLA')
 
+# def bytespdate2num(fmt, encoding='utf-8' ):
+#     strconverter= mdates.strpdate2num(fmt)
+#     def bytesconverter(b):
+#         s = b.decode(encoding)
+#         return strconverter(s)
+#     return bytesconverter
+#
+# def graph_data(stock):
+#
+#     fig = plt.figure()
+#     ax1= plt.subplot2grid((1, 1), (0,0))
+#
+#     stock_price_url =  'https://pythonprogramming.net/yahoo_finance_replacement'
+#     source_code = urllib.request.urlopen(stock_price_url).read().decode()
+#     stock_data = []
+#     split_source = source_code.split('\n')
+#     for line in split_source:
+#         split_line = line.split(',')
+#         if len(split_line) == 7:
+#             if 'Volume' not in line and 'labels' not in line:
+#                 stock_data.append(line)
+#
+#     date, openp, highp, lowp, closep, adjustedp, volume = np.loadtxt(stock_data,
+#                                                                      delimiter=',',
+#                                                                      unpack=True,
+#                                                                      converters={0: bytespdate2num('%Y-%m-%d')})
+#
+#     x = 0
+#     y = len(date)
+#     ohlc = []
+#     while x < y:
+#         append_me = date[x], openp[x], highp[x], lowp[x], closep[x], volume[x]
+#         ohlc.append(append_me)
+#         x+=1
+#
+#     mplfinance.original_flavor.candlestick_ohlc(ax1, ohlc, width=0.4, colorup='g', colordown= 'r')
+#     for label in ax1.xaxis.get_ticklabels():
+#         label.set_rotation(45)
+#     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+#     ax1.xaxis.set_major_locator(mticker.MaxNLocator(6))
+#
+#
+#     plt.xlabel('Date')
+#     plt.ylabel('Price')
+#     plt.title('TSLA')
+#     plt.legend()
+#     plt.subplots_adjust(left = 0.09, bottom = 0.18, right = 0.94, top = 0.95, wspace=0.2, hspace=0)
+#     plt.show()
+#
+# graph_data('TSLA')
+# style.use('fivethirtyeight')
+# fig = plt.figure()
+# ax1 = fig.add_subplot(1, 1, 1)
+#
+# def animate(i):
+#     graph_data = open('datatomatplotlib.txt', 'r').read()
+#     lines = graph_data.split('\n')
+#     xs = []
+#     ys = []
+#     for line in lines:
+#         if len(line)>1:
+#             x, y = line.split(',')
+#             xs.append(x)
+#             ys.append(y)
+#
+#     ax1.clear()
+#     ax1.plot(xs, ys)
+#
+# ani = animation.FuncAnimation(fig, animate, interval=1000)
+# plt.show()
+
 def bytespdate2num(fmt, encoding='utf-8' ):
     strconverter= mdates.strpdate2num(fmt)
     def bytesconverter(b):
@@ -311,11 +382,17 @@ def graph_data(stock):
         ohlc.append(append_me)
         x+=1
 
-    mplfinance.original_flavor.candlestick_ohlc(ax1, ohlc, width=0.4, colorup='g', colordown= 'r')
+    mplfinance.original_flavor.candlestick_ohlc(ax1, ohlc, width=0.4, colorup='#77d879', colordown= '#db3f3f')
     for label in ax1.xaxis.get_ticklabels():
         label.set_rotation(45)
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     ax1.xaxis.set_major_locator(mticker.MaxNLocator(6))
+
+    ax1.annotate('Bad News', (date[11], highp[11]), xytext=(0.8, 0.9), textcoords = 'axes fraction',
+                 arrowprops= dict(facecolor= 'grey', color= 'grey'))
+
+    font_dict = {'family':'serif ', 'color':'darkred', 'size':15}
+    ax1.text(date[-40], closep[1000], 'TSLA Prices', fontdict= font_dict)
 
 
     plt.xlabel('Date')
